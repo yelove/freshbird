@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 系统运行环境参数初始化 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="/WEB-INF/config/cn/dev/sys_config.properties" />
+	</bean>
+
+	<!-- Mybatis配置
+	<import resource="ac-mybatis.xml" /> -->
+
+	<!-- Redis配置 
+	<import resource="ac-redis.xml" />-->
+
+	<!-- 装载Service,DAO,Aspect实例 -->
+	<context:component-scan base-package="cn.zsy.webim.action" />
+
+</beans>
