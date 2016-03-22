@@ -1,64 +1,75 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>test</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TaiK-台卡网络</title>
+<link href="assets/css/bootstrap.css" rel="stylesheet" />
+<link href="assets/css/font-awesome.css" rel="stylesheet" />
+
 </head>
-</head>
-<script type="text/javascript">
-	var socket;
-
-	if (!window.WebSocket) {
-
-		window.WebSocket = window.MozWebSocket;
-	}
-
-	if (window.WebSocket) {
-		socket = new WebSocket("ws://localhost:7397/websocket");
-
-		socket.onmessage = function(event) {
-
-			var ta = document.getElementById('responseText');
-			ta.value += event.data + "\r\n";
-		};
-
-		socket.onopen = function(event) {
-
-			var ta = document.getElementById('responseText');
-			ta.value = "打开WebSoket 服务正常，浏览器支持WebSoket!" + "\r\n";
-
-		};
-
-		socket.onclose = function(event) {
-
-			var ta = document.getElementById('responseText');
-			ta.value = "";
-			ta.value = "WebSocket 关闭" + "\r\n";
-		};
-	} else {
-		alert("您的浏览器不支持WebSocket协议！");
-	}
-
-	function send(message) {
-		if (!window.WebSocket) {
-			return;
-		}
-		if (socket.readyState == WebSocket.OPEN) {
-			socket.send(message);
+<body style="background-color: #E2E2E2;">
+	<div class="container">
+		<div class="row text-center " style="padding-top: 100px;">
+			<div class="col-md-12">
+				<img src="assets/img/logo-invoice.png" />
+			</div>
+		</div>
+		<div class="row ">
+			<div
+				class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+				<div class="panel-body">
+					<form id = "loginform" role="form">
+						<hr />
+						<h5>请填写用户名密码</h5>
+						<br />
+						<div class="form-group input-group">
+							<span class="input-group-addon"><i class="fa fa-tag"></i></span>
+							<input type="text" class="form-control" name="name"
+								id="name" placeholder="用户名" />
+						</div>
+						<div class="form-group input-group">
+							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+							<input type="password" class="form-control" name="password"
+								id="password" placeholder="密码" />
+						</div>
+						<a href="javascript:login();" class="btn btn-primary ">登录</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="assets/js/jquery-1.10.2.js"></script>
+<script>
+	function login() {
+		var username = $("#name").val();
+		var password = $("#password").val();
+		if (username == '' || username.length > 64 || password == ''
+				|| password.length > 64) {
+			alert("请输入正确用户名密码");
 		} else {
-			alert("WebSocket 连接没有建立成功！");
+			$.ajax({
+				url : "user/login",
+				type : "POST",
+				data : $("#loginform").serialize(),
+				success : function(rs) {
+					var data = $.parseJSON(rs);
+					if (data.status == 1000) {
+						location.href = 'main';
+					} else if (data.status == 1009) {
+						alert("账号不存在");
+					} else if (data.status == 1004) {
+						alert("密码不正确");
+					} else {
+						alert("未知异常!");
+					}
+				},
+				error : function(error) {
+					alert("未知异常!");
+				}
+			});
 		}
-
 	}
 </script>
-<body>
-	<form onSubmit="return false;">
-		<input type="text" name="message" value="Netty The Sinper" /> <br />
-		<br /> <input type="button" value="发送 WebSocket 请求消息"
-			onClick="send(this.form.message.value)" />
-		<hr color="blue" />
-		<h3>服务端返回的应答消息</h3>
-		<textarea id="responseText" style="width: 1024px; height: 300px;"></textarea>
-	</form>
-</body>
 </html>
