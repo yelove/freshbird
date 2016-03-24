@@ -26,7 +26,7 @@
 				<span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">台卡网络</a>
+			<a class="navbar-brand" style="background: #379A88;" href="#">台卡网络</a>
 		</div>
 		<div class="header-right">
 			<a href="message-task.html" class="btn btn-primary" title="New Task">

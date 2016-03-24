@@ -37,18 +37,24 @@ public class LogInAction {
 			rm.put(CommonStr.STATUS, 1009);
 			return rm;
 		}
-		if (aluser.getPassword() != user.getPassword()) {
+		if (!aluser.getPassword().equals(user.getPassword())) {
 			rm.put(CommonStr.STATUS, 1004);
 			return rm;
+		}else{
+			request.getSession(true).setAttribute(CommonStr.USERNAME, user.getName());
+			request.getSession(true).setAttribute(CommonStr.TKUSER, aluser);
+			rm.put(CommonStr.STATUS, 1000);
 		}
-		request.getSession(true).setAttribute(CommonStr.USERNAME, user.getName());
-		request.getSession(true).setAttribute(CommonStr.TKUSER, aluser);
 		return rm;
 	}
 
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
-	public String logOut(User user, ModelMap mdmap, HttpServletRequest request) {
+	public String logOut(ModelMap mdmap, HttpServletRequest request) {
 		request.getSession(true).removeAttribute(CommonStr.USERNAME);
+		User user =(User) request.getSession(true).getAttribute(CommonStr.TKUSER);
+		if(null!=user){
+			uService.logout(user);
+		}
 		request.getSession(true).removeAttribute(CommonStr.TKUSER);
 		return "redirect:/";
 	}

@@ -58,7 +58,7 @@
 	<import resource="ac-redis.xml" />-->
 
 	<!-- 装载Service,DAO,Aspect实例 -->
-	<context:component-scan base-package="cn.zsy.webim.action" />
+	<context:component-scan base-package="cn.zsy.webim" />
 	
     
 </beans>

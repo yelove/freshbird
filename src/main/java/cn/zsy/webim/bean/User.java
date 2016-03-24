@@ -28,7 +28,7 @@ public class User implements Serializable {
 	private long createtiem;
 
 	private long updatetime;
-
+	
 	public long getId() {
 		return id;
 	}

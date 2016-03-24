@@ -123,7 +123,7 @@
 		var queryparam = $("#queryparam").val();
 		if (!queryparam == '') {
 			$.ajax({
-				url : "user/queryorder",
+				url : "queryorder",
 				type : "POST",
 				data : {
 					'queryparam' : queryparam
@@ -151,7 +151,7 @@
 			alert("请输入完整的订单信息");
 		} else {
 			$.ajax({
-				url : "user/addorder",
+				url : "addorder",
 				type : "POST",
 				data : $("#orderform").serialize(),
 				success : function(rs) {

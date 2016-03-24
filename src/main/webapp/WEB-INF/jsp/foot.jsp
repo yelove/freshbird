@@ -8,7 +8,6 @@
 <script
 	src="<%=request.getContextPath()%>/assets/js/jquery.metisMenu.js"></script>
 <script src="<%=request.getContextPath()%>/assets/js/custom.js"></script>
-<
 <script type="text/javascript">
 function longPolling() {
 	$.ajax({
@@ -18,27 +17,32 @@ function longPolling() {
 			},
 			dataType : "text",
 			type : "GET",
-			timeout : 8000,
+			timeout : 15000,
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(XMLHttpRequest.status, textStatus);
-				if(XMLHttpRequest.status==0){
+				if(textStatus == 'timeout'){
 					longPolling();
+				}else if(XMLHttpRequest.status==0){
+					setTimeout(function() {
+						longPolling();
+					}, 10000);
 				}else{
 					setTimeout(function() {
 						longPolling();
-					}, 5000);
+					}, 12000);
 				}
 			},
 			success : function(data, textStatus) {
 				if (textStatus == "success") { // 请求成功
 					console.log(textStatus, data);
 				}
-				longPolling();
+				setTimeout(function() {
+					longPolling();
+				}, 2000);
 			}
 		});
 	}
 	$(document).ready(function() {
 		longPolling();
-
 	});
 </script>

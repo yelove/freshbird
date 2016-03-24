@@ -11,5 +11,9 @@ public final class CommonStr {
 	public static final String USERNAME = "username";
 	
 	public static final String TKUSER = "tk_user";
+	
+	public static final String BIG = "big";
+	
+	public static final String LIT = "lit";
 
 }
