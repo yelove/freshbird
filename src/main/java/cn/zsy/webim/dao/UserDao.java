@@ -11,6 +11,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
+import cn.zsy.util.MD5Tools;
 import cn.zsy.webim.bean.User;
 
 @Service
@@ -43,6 +44,10 @@ public class UserDao {
 	
 	public User getUser(Long id){
 		return template.queryForObject("select * from `user` where id = ?", User.class, id);
+	}
+	
+	public User getUser(String name){
+		return template.queryForObject("select * from `user` where namemd5 = ?", User.class, MD5Tools.MD5(name));
 	}
 	
 	public boolean updateUserForLastLog(Long id,Long updateTime){

@@ -15,7 +15,7 @@
 			<div class="col-md-4">
 				<div class="main-box mb-red">
 					<a href="graborder/0"> <i class="fa fa-bolt fa-5x"></i>
-						<h5>金额大于30元的订单数目为<font id="bigt" color="red">0</font>个     金额小于30元的订单数目为<font id="litt" color="red">0</font> 个</h5>
+						<h5>金额大于30元的订单数目为<font id="bigt" color="red">0</font>个     金额小于30元的订单数目为<font id="litt" color="red">0</font>个</h5>
 					</a>
 				</div>
 			</div>
