@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -34,7 +35,7 @@ public class UserDao {
 				ps.setString(5, user.getDepartment());
 				ps.setString(6, user.getRealname());
 				ps.setInt(7, user.getState());
-				ps.setLong(8, user.getCreatetiem());
+				ps.setLong(8, user.getCreatetime());
 				ps.setLong(9, user.getUpdatetime());
 				return ps;
 			}
@@ -46,8 +47,9 @@ public class UserDao {
 		return template.queryForObject("select * from `user` where id = ?", User.class, id);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public User getUser(String name){
-		return template.queryForObject("select * from `user` where namemd5 = ?", User.class, MD5Tools.MD5(name));
+		return template.queryForObject("select * from `user` where namemd5 = ?", new Object[]{MD5Tools.MD5(name)},new BeanPropertyRowMapper(User.class));
 	}
 	
 	public boolean updateUserForLastLog(Long id,Long updateTime){

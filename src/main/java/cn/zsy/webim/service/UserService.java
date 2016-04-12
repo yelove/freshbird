@@ -25,6 +25,7 @@ public class UserService {
 	
 	@PostConstruct
 	public void initUser(){
+		departList.add(new Department(0, "待分配", "dfp"));
 		departList.add(new Department(1, "接单客服", "jdkf"));
 		departList.add(new Department(2, "抢单客服", "qdkf"));
 		departList.add(new Department(3, "管理部门", "glbm"));
@@ -32,7 +33,7 @@ public class UserService {
 	
 	public boolean saveUser(User user){
 		user.setId(System.currentTimeMillis());//临时ID
-		user.setCreatetiem(System.currentTimeMillis());
+		user.setCreatetime(System.currentTimeMillis());
 		userCache.put(user.getName(), user);
 		userDao.saveUser(user);
 		return true;

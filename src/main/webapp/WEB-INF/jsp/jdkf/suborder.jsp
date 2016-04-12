@@ -49,7 +49,7 @@
 							<input id="queryparam" type="text" class="form-control"
 								placeholder="请输入旺旺ID或抢单客服"> <span
 								class="input-group-btn">
-								<button onclick="queryOrder()" class="btn btn-success"
+								<button onclick="queryOrder(1)" class="btn btn-success"
 									type="button">查询订单</button>
 							</span>
 
@@ -60,43 +60,22 @@
 							<table class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
+										<th>ID</th>
+										<th>旺旺ID</th>
+										<th>金额</th>
+										<th>提单人</th>
+										<th>提单时间</th>
+										<th>备注</th>
+										<th>抢单人</th>
+										<th>抢单单时间</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td>1</td>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
+								<tbody id = "orderrs">
 								</tbody>
 							</table>
-							<ul class="pagination">
-								<li class="disabled"><a href="#">«</a></li>
-								<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">»</a></li>
-							</ul>
+							<p id="noval" style="display:none">没有数据！</p>
 						</div>
+						<ul class="pagination"></ul>
 					</div>
 				</div>
 			</div>
@@ -105,7 +84,10 @@
 </div>
 <jsp:include page="../foot.jsp" />
 </body>
+<script src="<%=request.getContextPath()%>/assets/js/jBootstrapPage.js"></script>
 <script type="text/javascript">
+$('#jdkfli').addClass("active");
+$('#suborderli').addClass("active-menu");
 	var showflag = false;
 	function showHideAddform() {
 		if (showflag) {
@@ -118,20 +100,48 @@
 			$("#addorderbtn").html('隐藏');
 		}
 	}
+	
+	function createRsOd(rsod){
+		if(rsod&&rsod.length>0){
+			$("#noval").hide();
+			var html = "";
+			for(var i=0;i<rsod.length;i++ ){
+				html +="<tr><td>"+rsod[i].id+"</td><td>"+rsod[i].wwid+"</td><td>"+rsod[i].amount+"</td><td>"+rsod[i].subusername+"</td><td>"+rsod[i].ctstr+"</td><td>"+rsod[i].desc+"</td><td>"+rsod[i].grabusername+"</td><td>"+rsod[i].upstr+"</td></tr>"
+			}
+			$("#orderrs").html(html);
+		}else{
+			$("#orderrs").html('');
+			$("#noval").show();
+			return;
+		}
+	}
 
-	function queryOrder() {
+	function queryOrder(ctpg) {
 		var queryparam = $("#queryparam").val();
 		if (!queryparam == '') {
 			$.ajax({
-				url : "queryorder",
+				url : "queryod",
 				type : "POST",
 				data : {
-					'queryparam' : queryparam
+					'qstr' : queryparam,
+					'ctpg':ctpg
 				},
 				success : function(rs) {
 					var data = $.parseJSON(rs);
 					if (data.status == 1000) {
 						alert("查询订单成功");
+						createRsOd(data.orderlist);
+						if(ctpg==1){
+							$(".pagination").jBootstrapPage({
+					            pageSize : 20,
+					            total : data.maxrow,
+					            selectedIndex : data.ctpg,
+					            maxPageButton:6,
+					            onPageClicked: function(obj, pageIndex) {
+					            	queryOrder(pageIndex+1);
+					            }
+					        });
+						}
 					} else {
 						alert("查询异常!");
 					}

@@ -1,6 +1,9 @@
 package cn.zsy.webim.bean;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import cn.zsy.util.TimeUtils;
 
 public class User implements Serializable {
 
@@ -25,9 +28,11 @@ public class User implements Serializable {
 
 	private int state;
 
-	private long createtiem;
+	private long createtime;
 
 	private long updatetime;
+	
+	private String upstr;
 	
 	public long getId() {
 		return id;
@@ -93,12 +98,13 @@ public class User implements Serializable {
 		this.state = state;
 	}
 
-	public long getCreatetiem() {
-		return createtiem;
+
+	public long getCreatetime() {
+		return createtime;
 	}
 
-	public void setCreatetiem(long createtiem) {
-		this.createtiem = createtiem;
+	public void setCreatetime(long createtime) {
+		this.createtime = createtime;
 	}
 
 	public long getUpdatetime() {
@@ -107,6 +113,17 @@ public class User implements Serializable {
 
 	public void setUpdatetime(long updatetime) {
 		this.updatetime = updatetime;
+	}
+	
+	public String getUpstr() {
+		if(updatetime>0){
+			upstr = TimeUtils.date2str(new Date(updatetime));
+		}
+		return upstr;
+	}
+
+	public void setUpstr(String upstr) {
+		this.upstr = upstr;
 	}
 
 }

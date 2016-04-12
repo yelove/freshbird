@@ -29,9 +29,9 @@
 			<a class="navbar-brand" style="background: #379A88;" href="#">台卡网络</a>
 		</div>
 		<div class="header-right">
-			<a href="message-task.html" class="btn btn-primary" title="New Task">
-			<b>0</b><i class="fa fa-bars fa-2x"></i></a> 
-			<a href="user/logout" class="btn btn-danger" title="Logout">
+			<!-- <a href="message-task.html" class="btn btn-primary" title="New Task">
+			<b>0</b><i class="fa fa-bars fa-2x"></i></a>  -->
+			<a href="user/logout" class="btn btn-danger" title="注销">
 			<i class="fa fa-exclamation-circle fa-2x"></i></a>
 		</div>
 		</nav>

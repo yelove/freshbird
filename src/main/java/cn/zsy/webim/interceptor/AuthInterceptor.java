@@ -19,7 +19,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		if (null!=user||request.getRequestURI().contains("user/login")) {
 			if(null!=user){
 				request.setAttribute(CommonStr.USERNAME, user.getRealname());
-				request.setAttribute("lastlogintime", user.getUpdatetime());
+				request.setAttribute("lastlogintime", user.getUpstr());
 				request.setAttribute("power", user.getDepartmentid());
 			}
 			return true;

@@ -1,6 +1,9 @@
 package cn.zsy.webim.bean;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import cn.zsy.util.TimeUtils;
 
 public class Order implements Serializable {
 
@@ -23,13 +26,17 @@ public class Order implements Serializable {
 	
 	private long createtime;
 	
+	private String ctstr = "";
+	
 	private int state;
 	
-	private long garbuserid;
+	private long grabuserid;
 	
-	private String grabusername;
+	private String grabusername = "";
 	
 	private long updatetime;
+	
+	private String upstr = "";
 
 	public long getId() {
 		return id;
@@ -95,12 +102,12 @@ public class Order implements Serializable {
 		this.state = state;
 	}
 
-	public long getGarbuserid() {
-		return garbuserid;
+	public long getGrabuserid() {
+		return grabuserid;
 	}
 
-	public void setGarbuserid(long garbuserid) {
-		this.garbuserid = garbuserid;
+	public void setGrabuserid(long grabuserid) {
+		this.grabuserid = grabuserid;
 	}
 
 	public String getGrabusername() {
@@ -118,5 +125,28 @@ public class Order implements Serializable {
 	public void setUpdatetime(long updatetime) {
 		this.updatetime = updatetime;
 	}
+
+	public String getCtstr() {
+		if(createtime>0){
+			ctstr = TimeUtils.date2str(new Date(createtime));
+		}
+		return ctstr;
+	}
+
+	public void setCtstr(String ctstr) {
+		this.ctstr = ctstr;
+	}
+
+	public String getUpstr() {
+		if(updatetime>0){
+			upstr = TimeUtils.date2str(new Date(updatetime));
+		}
+		return upstr;
+	}
+
+	public void setUpstr(String upstr) {
+		this.upstr = upstr;
+	}
+	
 
 }

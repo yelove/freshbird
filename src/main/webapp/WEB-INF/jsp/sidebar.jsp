@@ -14,11 +14,11 @@
 					</div>
 				</div>
 			</li>
-			<li><a id="mainmenu" class="active-menu" href="main"> <i
+			<li><a id="mainmenu" href="main"> <i
 					class="fa fa-dashboard "></i>公司首页
 			</a></li>
 			<c:if test="${power == 1||power == 3}">
-				<li id="jdkfli" class="active"><a href="#"><i class="fa fa-desktop "></i>接待客服 <span
+				<li id="jdkfli" ><a href="#"><i class="fa fa-desktop "></i>接待客服 <span
 						class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li><a id="suborderli" href="suborder"><i class="fa fa-coffee"></i>订单业务</a></li>
@@ -27,7 +27,7 @@
 					</ul></li>
 				</c:if>
 				<c:if test="${power == 2||power == 3}">
-					<li id="qdkfli" class="active"><a href="#"><i class="fa fa-yelp "></i>抢单客服 <span
+					<li id="qdkfli"><a href="#"><i class="fa fa-yelp "></i>抢单客服 <span
 							class="fa arrow"> </span></a>
 						<ul class="nav nav-second-level">
 							<li><a href="#"><i class="fa fa-coffee "></i>抢单页面</a></li>
@@ -36,7 +36,7 @@
 						</ul></li>
 					</c:if>
 					<c:if test="${power == 3}">
-						<li id="glzxli" class="active"><a href="#"><i class="fa fa-bicycle "></i>管理中心<span
+						<li id="glzxli"><a href="#"><i class="fa fa-bicycle "></i>管理中心<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#"><i class="fa fa-coffee "></i>管理员管理</a></li>

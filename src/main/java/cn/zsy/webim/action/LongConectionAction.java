@@ -19,7 +19,7 @@ public class LongConectionAction {
 	@Autowired
 	private OrderService odService;
 	
-	@RequestMapping(value = "/ajax", method = RequestMethod.GET)
+	@RequestMapping(value = "/ajax", method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
 	public @ResponseBody Map<String,Object> ajax() {
 		Map<String,Object> rm = new HashMap<String,Object>();
 		rm.put(CommonStr.STATUS, 1002);

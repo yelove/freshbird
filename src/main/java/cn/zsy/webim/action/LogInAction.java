@@ -31,7 +31,7 @@ public class LogInAction {
 	@Resource(name = "loginTaskExecutor")
 	private TaskExecutor taskExecutor;
 
-	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@RequestMapping(value = "login", method = RequestMethod.POST,produces = "text/html;charset=UTF-8")
 	public @ResponseBody Map<String, Object> login(User user, ModelMap mdmap, HttpServletRequest request) {
 		Map<String, Object> rm = new HashMap<String, Object>();
 		rm.put(CommonStr.STATUS, 1002);
